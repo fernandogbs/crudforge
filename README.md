@@ -8,10 +8,10 @@ Instruções sobre como instalar e configurar o ambiente para rodar o projeto.
 
 ```bash
 # Clone o repositório
-git clone https://github.com/usuario/nome-do-projeto.git
+git clone https://github.com/fernandogbs/crudforge.git
 
 # Entre no diretório do projeto
-cd nome-do-projeto
+cd crudforge
 
 # Instale as dependências
 npm install
