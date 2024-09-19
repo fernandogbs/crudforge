@@ -1,0 +1,43 @@
+doctype html
+html
+  head
+    button(onclick='window.location.href="/"') Voltar para o inicio
+    title #{name}
+  body
+    h1 #{name} CRUD
+    form(action=`/crud/${name}/items`, method='post')
+      input(type='number', name='id', placeholder='Item ID')
+      input(type='text', name='col1', placeholder='Column 1')
+      input(type='text', name='col2', placeholder='Column 2')
+      input(type='text', name='col3', placeholder='Column 3')
+      input(type='text', name='col4', placeholder='Column 4')
+      button(type='submit') Add Item
+
+    h2 Items
+    table
+      thead
+        tr
+          th ID
+          th Column 1
+          th Column 2
+          th Column 3
+          th Column 4
+          th Actions
+      tbody
+        each item, id in items
+          tr
+            td #{id}
+            td #{item.col1}
+            td #{item.col2}
+            td #{item.col3}
+            td #{item.col4}
+            td
+              form(action=`/crud/${name}/items/${id}/update`, method='post', style='display:inline')
+                input(type='text', name='col1', value=item.col1)
+                input(type='text', name='col2', value=item.col2)
+                input(type='text', name='col3', value=item.col3)
+                input(type='text', name='col4', value=item.col4)
+                button(type='submit') Update
+
+              form(action=`/crud/${name}/items/${id}/delete`, method='post', style='display:inline')
+                button(type='submit') Delete
