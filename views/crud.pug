@@ -1,43 +1,55 @@
 doctype html
 html
   head
-    button(onclick='window.location.href="/"') Voltar para o inicio
-    title #{name}
+    title #{name} CRUD
+    link(rel='stylesheet', href='/css/form.css')
+    script.
+      function editItem(id, col1, col2, col3, col4) {
+        document.querySelector('input[name="id"]').value = id;
+        document.querySelector('input[name="col1"]').value = col1;
+        document.querySelector('input[name="col2"]').value = col2;
+        document.querySelector('input[name="col3"]').value = col3;
+        document.querySelector('input[name="col4"]').value = col4;
+        document.getElementById('form-action').innerText = 'Update Item';
+      }
   body
-    h1 #{name} CRUD
-    form(action=`/crud/${name}/items`, method='post')
-      input(type='number', name='id', placeholder='Item ID')
-      input(type='text', name='col1', placeholder='Column 1')
-      input(type='text', name='col2', placeholder='Column 2')
-      input(type='text', name='col3', placeholder='Column 3')
-      input(type='text', name='col4', placeholder='Column 4')
-      button(type='submit') Add Item
-
-    h2 Items
-    table
-      thead
-        tr
-          th ID
-          th Column 1
-          th Column 2
-          th Column 3
-          th Column 4
-          th Actions
-      tbody
-        each item, id in items
-          tr
-            td #{id}
-            td #{item.col1}
-            td #{item.col2}
-            td #{item.col3}
-            td #{item.col4}
-            td
-              form(action=`/crud/${name}/items/${id}/update`, method='post', style='display:inline')
-                input(type='text', name='col1', value=item.col1)
-                input(type='text', name='col2', value=item.col2)
-                input(type='text', name='col3', value=item.col3)
-                input(type='text', name='col4', value=item.col4)
-                button(type='submit') Update
-
-              form(action=`/crud/${name}/items/${id}/delete`, method='post', style='display:inline')
-                button(type='submit') Delete
+    div.container
+      button(type='button', onclick='window.location.href="/"') Back
+      h1 #{name}
+      form(action=`/crud/${name}/items`, method='post', class='form-inline')
+        input(type='text', name='id', placeholder='Item ID', required)
+        input(type='text', name='col1', placeholder='Column 1', required)
+        input(type='text', name='col2', placeholder='Column 2', required)
+        input(type='text', name='col3', placeholder='Column 3', required)
+        input(type='text', name='col4', placeholder='Column 4', required)
+        button(type='submit') #[span#form-action Add Item]
+      
+      h2 Items
+      div.table-responsive
+        table
+          thead
+            tr
+              th ID
+              th Column 1
+              th Column 2
+              th Column 3
+              th Column 4
+              th Actions
+          tbody
+            each item, id in items
+              tr
+                td #{id}
+                td #{item.col1}
+                td #{item.col2}
+                td #{item.col3}
+                td #{item.col4}
+                td
+                  div.td-container
+                    form(action=`/crud/${name}/items/${id}/edit`, method='get')
+                      button(type='button', class='edit-btn', onclick=`editItem('${id}', '${item.col1}', '${item.col2}', '${item.col3}', '${item.col4}')`) Edit
+                    form(action=`/crud/${name}/items/${id}/update`, method='post', class='form-inline')
+                      button(type='submit') Update
+                    form(action=`/crud/${name}/items/${id}/delete`, method='post')
+                      button(type='submit', class='delete-btn') Delete
+        footer
+            p &copy; 2024 Fernando - Todos os direitos reservados

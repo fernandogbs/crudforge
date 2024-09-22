@@ -1,15 +1,18 @@
 doctype html
 html
   head
-    title CrudForge
+    title Crud Forge
+    link(rel='stylesheet', href='/css/styles.css')
   body
-    h1 CRUD Management
-    form(action='/cruds', method='post')
-      input(type='text', name='name', placeholder='Enter CRUD name')
-      button(type='submit') Create CRUD
-
-    h2 Existing CRUDs
-    ul
-      each crud in cruds
-        li
-          a(href=`/crud/${crud}`) #{crud}
+    div.container
+      h1 CRUD Forge
+      form(action='/cruds', method='post')
+        input(type='text', name='name', placeholder='Enter CRUD name', required)
+        button(type='submit') Create CRUD
+      h2 Existing CRUDs
+      ul
+        each crud in cruds
+          li
+            a(href=`/crud/${crud}`) #{crud}
+    footer
+      p &copy; 2024 Fernando - Todos os direitos reservados
